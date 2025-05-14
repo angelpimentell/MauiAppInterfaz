@@ -18,11 +18,6 @@ namespace MauiAppInterfaz.Services
 
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "clients.db");
 
-#if DEBUG
-            if (File.Exists(dbPath))
-                File.Delete(dbPath); // For dev testing
-#endif
-
             _database = new SQLiteAsyncConnection(dbPath);
             await _database.CreateTableAsync<Client>();
 
