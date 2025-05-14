@@ -1,16 +1,25 @@
-﻿namespace MauiAppInterfaz
+﻿using MauiAppInterfaz.Services;
+
+namespace MauiAppInterfaz
 {
     public partial class MainPage : ContentPage
     {
 
-        public MainPage()
+        public DatabaseService _database;
+
+        public MainPage(DatabaseService database)
         {
             InitializeComponent();
+            _database = database;
         }
-        private void OnSaludarClicked(object sender, EventArgs e)
+
+        protected override async void OnAppearing()
         {
-            string nombre = nombreEntrada.Text;
-            saludoLabel.Text = $"Hola, {nombre} 👋";
+            base.OnAppearing();
+            await _database.InitAsync();
+
+            var clients = await _database.GetClientsAsync();
+            ClientsView.ItemsSource = clients;
         }
     }
 

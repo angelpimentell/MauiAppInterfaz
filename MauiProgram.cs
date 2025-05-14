@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MauiAppInterfaz.Services;
+using Microsoft.Extensions.Logging;
 
 namespace MauiAppInterfaz
 {
@@ -17,8 +18,11 @@ namespace MauiAppInterfaz
 
 #if DEBUG
     		builder.Logging.AddDebug();
-#endif
 
+            builder.Services.AddSingleton(new DatabaseService());
+
+            builder.Services.AddSingleton<MainPage>();
+#endif
             return builder.Build();
         }
     }
